@@ -33,7 +33,7 @@ A robust, web-based Banking Management System designed to streamline core bankin
 2. **Transactions Table (`transactions`)**
    - `id` (Primary Key)
    - `accno` (Foreign Key)
-   - `operation_type` (Deposit/Withdrawal/Transfer)
+   - `operation_type` (Deposit/Withdrawal)
    - `amount`
    - `balance_after`
    - `timestamp`
