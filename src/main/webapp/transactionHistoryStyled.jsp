@@ -70,16 +70,16 @@
                 String password = "password@123";
                 Connection con = DriverManager.getConnection(url, username, password);
 
-                PreparedStatement ps = con.prepareStatement("SELECT * FROM transactions WHERE accno = ?");
+                PreparedStatement ps = con.prepareStatement("SELECT * FROM transactions WHERE accno = ? order by timestamp");
                 ps.setInt(1, Integer.parseInt(accno));
                 ResultSet rs = ps.executeQuery();
 
                 out.print("<table>");
-                out.print("<tr><th>Transaction ID</th><th>Operation</th><th>Amount</th><th>Balance After</th><th>Timestamp</th></tr>");
+                out.print("<tr><th>Operation</th><th>Amount</th><th>Balance After</th><th>Timestamp</th></tr>");
 
                 while (rs.next()) {
                     out.print("<tr>");
-                    out.print("<td>" + rs.getInt("id") + "</td>");
+                    
                     out.print("<td>" + rs.getString("operation_type") + "</td>");
                     out.print("<td>" + rs.getDouble("amount") + "</td>");
                     out.print("<td>" + rs.getDouble("balance_after") + "</td>");
