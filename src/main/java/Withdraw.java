@@ -37,6 +37,17 @@ public class Withdraw extends HttpServlet
 			if (rs.next()) {
 				// Retrieve the current balance
 				int currentBalance = rs.getInt("bal");
+				
+				 // Check if withdrawal amount exceeds the current balance
+			    if (withdrawamt > currentBalance) {
+			        resp.setContentType("text/html");
+			        //out.print("<h3 style='color:red'>Insufficient balance. Withdrawal amount exceeds current balance.</h3>");
+			        req.setAttribute("errorMessage", "Insufficient balance. Withdrawal amount exceeds current balance.");
+			        
+			        RequestDispatcher rd = req.getRequestDispatcher("/withdraw.jsp");
+			        rd.include(req, resp);
+			        return; // Stop further execution
+			    }
 
 				// Calculate the new balance
 				int newBalance = currentBalance - withdrawamt;
@@ -76,7 +87,7 @@ public class Withdraw extends HttpServlet
 
 			} else {
 				resp.setContentType("text/html");
-				out.print("<h3 style='color:red'> Account Number and Aadhaar Number didn't Match</h3>");
+				out.print("<h3 style='color:red'> Account Number didn't Match</h3>");
 
 				RequestDispatcher rd = req.getRequestDispatcher("/withdraw.jsp");
 				rd.include(req, resp);
